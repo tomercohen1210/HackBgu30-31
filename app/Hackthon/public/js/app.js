@@ -12,12 +12,12 @@ $(document).ready(function () {
 
 
 function setSocketIo() {
-     socket = io.connect('http://localhost:8998');
+     socket = io.connect('http://132.72.237.27:8998');
 
     socket.emit("on_connect",{uuid:uuid});
 
     socket.on("on_connect", function(data){
-    console.log(data.message)
+        console.log(data.message);
     });
 
     socket.on("on_SlideMoveRight", function(data){
