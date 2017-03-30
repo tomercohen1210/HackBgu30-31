@@ -3,9 +3,26 @@
  */
 var path = require("path");
 var http = require(path.join(__dirname,"HTTP/Http.js"))(8998, "Hackthon/public");
-
-
-
+var ansNum = 0;
+var QA = {
+    Q1:
+    {
+        'possibles': ["Male","Female","Other"],
+        "ans": "Male"
+    },
+    Q2:
+    {
+        'possibles': ["Male","Female","Other"],
+        "ans": "Female"
+    },
+    Q3:
+    {
+        'possibles': ["Male","Female","Other"],
+        "ans": "Other"
+    }
+};
+var users = ['U1','U2','U3'];
+var StudentAns = {};
 http.app.get('/getSessionName', function (req, res) {
         try {
             var sesName =  Mongos.getSessionName();
@@ -38,8 +55,37 @@ http.app.get('/getServerCurrentState', function (req, res) {
 });
 
 var io = require('socket.io').listen(http.server);
+http.app.get('/send_ans', function(req,res){
+   var data = req.query;
+    if(StudentAns['Q1'][data['Q&A']['Q1']] == null)
+        StudentAns['Q1'][data['Q&A']['Q1']] = 1;
+    else
+        StudentAns['Q1'][data['Q&A']['Q1']]++;
+    ansNum++;
+    if(io.sockets.sockets == ansNum){
+        var ans =  buildJsonChart();
+        Object.keys(io.sockets.sockets).forEach(function (id) {
+            var currentSocket = io.sockets.sockets[id];
+            //Set the risk to the specific user/car/socket
+            currentSocket.emit("send_ans", ans);
+        });
+    }
 
-
+    //emit all data for chart
+});
+function buildJsonChart(){
+    var ans = {};
+    for(var i = 0; i < QA.length; i++){
+        ans[QA[i]] = [];
+        for(var j = 0; j < QA[i]['possibles']; j++){
+            if(StudentAns[QA[i]][QA[i]['possibles'][j]] != null)
+            ans[QA[i]].push({'label':QA[i]['possibles'][j],'y':StudentAns[QA[i]][QA[i]['possibles'][j]]});
+            else
+                ans[QA[i]].push({'label':QA[i]['possibles'][j],'y':0})
+        }
+    }
+    return ans;
+}
 io.sockets.on('connection', function (socket) {
     socket.on('update', function (data) {
         var requestTime = new Date().getTime();
