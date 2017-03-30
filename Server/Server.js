@@ -12,7 +12,6 @@ http.app.get('/CalculateScore', function (req, res) {
     }
     );
 
-http.app.get('/startSession', function (req, res) {
 var ansNum = 0;
 var QA = {
     Q1:
@@ -95,7 +94,7 @@ function buildJsonChart(){
         }
     }
     return ans;
-}
+};
 io.sockets.on('connection', function (socket) {
     socket.on('on_SlideMoveRight', function (data) {
             Object.keys(io.sockets.sockets).forEach(function (id) {

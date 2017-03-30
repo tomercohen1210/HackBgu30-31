@@ -35,10 +35,16 @@ function setSocketIo() {
     socket.on("on_SlideMoveLeft", function(data){
         navigateLeft(false);
     });
+    socket.on("send_ans", function (data) {
+        //build the chart for each question
+        $(".container-fluid").hide();
+        createChart(data);
+        $("#graph").show();
 
+    })
 
-});
-}
+};
+
 
 //function that send the user answers
 
@@ -63,13 +69,7 @@ var emitAns = function(questions,answers){
     socket.emit("send_ans",ans);
 }
 //get the data needed for the chart this will be the then function
-socket.on("send_ans", function (data) {
-    //build the chart for each question
-    $(".container-fluid").hide();
-    createChart(data);
-    $("#graph").show();
 
-})
 
 var createChart = function (data) {
     //open new window with this chart
@@ -106,14 +106,3 @@ $("button").click(function(){
         });
 });
 
-var loadGeoJson2 = function (url, func, params, paramName) {
-    $.post({
-        url: url,
-        dataType: 'json',
-        async: true,
-        success: function (data) {
-            search = data;
-            return data;
-        }
-    });
-}
