@@ -6,20 +6,13 @@ var http = require(path.join(__dirname,"HTTP/Http.js"))(8998, "Hackthon/public")
 
 
 
-http.app.get('/getSessionName', function (req, res) {
-        try {
-            var sesName =  Mongos.getSessionName();
-            res.send({name: sesName});
-        }
-        catch (err) {
-            res.send({err: err});
+http.app.get('/CalculateScore', function (req, res) {
+        var obj = req.query;
 
-        }
     }
-);
+    );
 
 http.app.get('/startSession', function (req, res) {
-    var obj = req.query;
     var sessionName = obj.name;
     Mongos.createNewSession(sessionName);
     var junction = users.getJunction();
@@ -32,37 +25,28 @@ http.app.get('/stopSession', function (req, res) {
     res.send();
 });
 
-http.app.get('/getServerCurrentState', function (req, res) {
-    var x = logic.getBuckets();
-    res.send(x);
-});
-
 var io = require('socket.io').listen(http.server);
 
 
 io.sockets.on('connection', function (socket) {
-    socket.on('update', function (data) {
-        var requestTime = new Date().getTime();
-        var dataToEmit = logic.handleNewData(data);
-
-        if (dataToEmit) {
-            if (dataToEmit.carData === undefined || dataToEmit.usersRisk === undefined) {
-                return;
-            }
-            var data = dataToEmit.carData; //what we need to send
+    socket.on('on_SlideMoveRight', function (data) {
             Object.keys(io.sockets.sockets).forEach(function (id) {
+                if(socket.id!=id) {
+                    var currentSocket = io.sockets.sockets[id];
+                    currentSocket.emit("on_SlideMoveRight", data);
+                }
+                });
+
+    });
+
+    socket.on('on_SlideMoveLeft', function (data) {
+        Object.keys(io.sockets.sockets).forEach(function (id) {
+            if(socket.id!=id) {
                 var currentSocket = io.sockets.sockets[id];
-                //Set the risk to the specific user/car/socket
-                data.myRisk = dataToEmit.usersRisk[id];
-                currentSocket.emit("update", data);
-            });
-            //Add the data to the DB
-            try {
-                Mongos.addRecurdToSession(data.uuid, data.lat, data.lon, requestTime);
-            } catch (err) {
-                console.log(err);
+                currentSocket.emit("on_SlideMoveLeft", data);
             }
-        }
+        });
+
     });
     socket.on("deluser", function (data) {
         try {
@@ -83,8 +67,7 @@ io.sockets.on('connection', function (socket) {
         });
     });
     socket.on("on_connect", function (data) {
-        console.log("on_connect");
-            socket.emit('on_connect', {massage:"HI.."});
+            socket.emit('on_connect', {message:"HI.."});
     });
     socket.on('disconnect', function () {
         //var disconnected_uuid = socket[UUID_SOCKET_LABEL];
