@@ -72,6 +72,8 @@ io.sockets.on('connection', function (socket) {
         catch (err) {
             logger.SayError("LogosIP", err.stack);
 
+
+            //dsds
         }
     });
     socket.on("MoveSlide", function (data) {
