@@ -66,7 +66,7 @@ var emitAns = function(questions,answers){
     for (var i = 0; i < questions.length; i++){
         ans["Q&A"][questions[i]] = answers[i];
     }
-    socket.emit("send_ans",ans);
+    socket.emit("send_Ans",ans);
 }
 //get the data needed for the chart this will be the then function
 
