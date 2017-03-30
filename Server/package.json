@@ -1,6 +1,5 @@
 {
-  "name": "hackbgu",
-  "version": "1.0.0",
+  "name": "hackbgu", "version": "1.0.0",
   "description": "",
   "main": "Server.js",
   "dependencies": {

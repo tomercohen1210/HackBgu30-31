@@ -63,24 +63,7 @@ http.app.get('/getServerCurrentState', function (req, res) {
 });
 
 var io = require('socket.io').listen(http.server);
-http.app.get('/send_ans', function(req,res){
-   var data = req.query;
-    if(StudentAns['Q1'][data['Q&A']['Q1']] == null)
-        StudentAns['Q1'][data['Q&A']['Q1']] = 1;
-    else
-        StudentAns['Q1'][data['Q&A']['Q1']]++;
-    ansNum++;
-    if(io.sockets.sockets == ansNum){
-        var ans =  buildJsonChart();
-        Object.keys(io.sockets.sockets).forEach(function (id) {
-            var currentSocket = io.sockets.sockets[id];
-            //Set the risk to the specific user/car/socket
-            currentSocket.emit("send_ans", ans);
-        });
-    }
 
-    //emit all data for chart
-});
 function buildJsonChart(){
     var ans = {};
     for(var i = 0; i < QA.length; i++){
@@ -113,6 +96,21 @@ io.sockets.on('connection', function (socket) {
             }
         });
 
+    });
+    socket.on('send_Ans',function(data){
+        if(StudentAns['Q1'][data['Q&A']['Q1']] == null)
+            StudentAns['Q1'][data['Q&A']['Q1']] = 1;
+        else
+            StudentAns['Q1'][data['Q&A']['Q1']]++;
+        ansNum++;
+        if(io.sockets.sockets == ansNum){
+            var ans =  buildJsonChart();
+            Object.keys(io.sockets.sockets).forEach(function (id) {
+                var currentSocket = io.sockets.sockets[id];
+                //Set the risk to the specific user/car/socket
+                currentSocket.emit("send_AllUsersAns", ans);//send the user all the answers for the questions
+            });
+        }
     });
     socket.on("deluser", function (data) {
         try {
