@@ -4,7 +4,6 @@
 var socket;
 
 $(document).ready(function () {
-
     setSocketIo();
 });
 
