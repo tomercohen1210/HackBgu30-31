@@ -45,7 +45,6 @@ http.app.get('/getSessionName', function (req, res) {
 );
 
 http.app.get('/startSession', function (req, res) {
-    var obj = req.query;
     var sessionName = obj.name;
     Mongos.createNewSession(sessionName);
     var junction = users.getJunction();
