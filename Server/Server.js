@@ -133,7 +133,7 @@ io.sockets.on('connection', function (socket) {
         });
     });
     socket.on("on_connect", function (data) {
-            socket.emit('on_connect', {message:"HI.."});
+            socket.emit('on_connect', {message:"HI..Man"});
     });
     socket.on('disconnect', function () {
         //var disconnected_uuid = socket[UUID_SOCKET_LABEL];
