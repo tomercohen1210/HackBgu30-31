@@ -5,12 +5,10 @@ var path = require("path");
 var http = require(path.join(__dirname,"HTTP/Http.js"))(8998, "Hackthon/public");
 
 
-
 http.app.get('/CalculateScore', function (req, res) {
         var obj = req.query;
 
-    }
-    );
+    });
 
 http.app.get('/startSession', function (req, res) {
     var sessionName = obj.name;
@@ -26,7 +24,6 @@ http.app.get('/stopSession', function (req, res) {
 });
 
 var io = require('socket.io').listen(http.server);
-
 
 io.sockets.on('connection', function (socket) {
     socket.on('on_SlideMoveRight', function (data) {
