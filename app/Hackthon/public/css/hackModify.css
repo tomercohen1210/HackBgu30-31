@@ -1,0 +1,45 @@
+#picExplore{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 89%;
+    height: 85%;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.verticalCenter{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+}
+
+#left_arrow{
+    left: 0px;
+    height: 10%;
+    cursor: pointer;
+}
+
+#right_arrow{
+    right: 0px;
+    height: 10%;
+    cursor: pointer;
+}
+
+.notes{
+    font-size: 20px;
+}
+
+#alert{
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    right: 100px;
+    cursor: pointer;
+}
+
