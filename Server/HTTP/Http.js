@@ -29,6 +29,8 @@ module.exports = function (port, pathToApp) {
 
     app.use('/utils', express.static(path.join(path.normalize(__dirname + "/../../Utils/"))));
     app.use('/External', express.static(path.join(path.normalize(__dirname + "/../../External/"))));
+    app.use('/js', express.static(path.join(path.normalize(__dirname + "/../../app/" +pathToApp +"/js" ))));
+
 
     app.use(express.static(path.normalize(__dirname + "/../../app/" + pathToApp)));
     app.use(express.static(path.normalize(__dirname + "/../../External/" + pathToApp)));
