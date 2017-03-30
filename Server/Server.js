@@ -32,38 +32,26 @@ var QA = {
 };
 var users = ['U1','U2','U3'];
 var StudentAns = {};
-http.app.get('/getSessionName', function (req, res) {
-        try {
-            var sesName =  Mongos.getSessionName();
-            res.send({name: sesName});
-        }
-        catch (err) {
-            res.send({err: err});
-
-        }
-    }
-);
-
-http.app.get('/startSession', function (req, res) {
-    var sessionName = obj.name;
-    Mongos.createNewSession(sessionName);
-    var junction = users.getJunction();
-    Mongos.AddJunctionToSession(junction, 'Session_' + sessionName);
-    res.send();
-});
-
-http.app.get('/stopSession', function (req, res) {
-    Mongos.closeSession();
-    res.send();
-});
-
-http.app.get('/getServerCurrentState', function (req, res) {
-    var x = logic.getBuckets();
-    res.send(x);
-});
 
 var io = require('socket.io').listen(http.server);
+http.app.get('/send_ans', function(req,res){
+   var data = req.query;
+    if(StudentAns['Q1'][data['Q&A']['Q1']] == null)
+        StudentAns['Q1'][data['Q&A']['Q1']] = 1;
+    else
+        StudentAns['Q1'][data['Q&A']['Q1']]++;
+    ansNum++;
+    if(io.sockets.sockets == ansNum){
+        var ans =  buildJsonChart();
+        Object.keys(io.sockets.sockets).forEach(function (id) {
+            var currentSocket = io.sockets.sockets[id];
+            //Set the risk to the specific user/car/socket
+            currentSocket.emit("send_ans", ans);
+        });
+    }
 
+    //emit all data for chart
+});
 function buildJsonChart(){
     var ans = {};
     for(var i = 0; i < QA.length; i++){
@@ -131,7 +119,7 @@ io.sockets.on('connection', function (socket) {
         });
     });
     socket.on("on_connect", function (data) {
-            socket.emit('on_connect', {message:"HI.."});
+            socket.emit('on_connect', {message:"HI..Man"});
     });
     socket.on('disconnect', function () {
         //var disconnected_uuid = socket[UUID_SOCKET_LABEL];
