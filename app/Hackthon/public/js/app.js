@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 
 function setSocketIo() {
-     socket = io.connect('http://132.72.237.27:8998');
+     socket = io.connect('http://localhost:8998');
 
     socket.emit("on_connect",{uuid:uuid});
 
@@ -35,7 +35,7 @@ function setSocketIo() {
     socket.on("on_SlideMoveLeft", function(data){
         navigateLeft(false);
     });
-    socket.on("send_ans", function (data) {
+    socket.on("send_AllUsersAns", function (data) {
         //build the chart for each question
         $(".container-fluid").hide();
         createChart(data);
@@ -73,27 +73,30 @@ var emitAns = function(questions,answers){
 
 var createChart = function (data) {
     //open new window with this chart
-    var chart = new CanvasJS.Chart("chartContainer", {
-        theme: "theme2",//theme1
-        title:{
-            text: "Basic Column Chart - CanvasJS"
-        },
-        animationEnabled: false,   // change to true
-        data: [
-            {
-                // Change type to "bar", "area", "spline", "pie",etc.
-                type: "column",
-                dataPoints:data /*[
-                    { label: "apple",  y: 10  },
-                    { label: "orange", y: 15  },
-                    { label: "banana", y: 25  },
-                    { label: "mango",  y: 30  },
-                    { label: "grape",  y: 28  }
-                ]*/
-            }
-        ]
-    });
-    chart.render();
+    for(var i =0; i < data.length; i++){
+        var chart = new CanvasJS.Chart("chartContainer" + i, {
+            theme: "theme2",//theme1
+            title:{
+                text: data[i]
+            },
+            animationEnabled: false,   // change to true
+            data: [
+                {
+                    // Change type to "bar", "area", "spline", "pie",etc.
+                    type: "column",
+                    dataPoints:data[i] /*[
+                 { label: "apple",  y: 10  },
+                 { label: "orange", y: 15  },
+                 { label: "banana", y: 25  },
+                 { label: "mango",  y: 30  },
+                 { label: "grape",  y: 28  }
+                 ]*/
+                }
+            ]
+        });
+        chart.render();
+    }
+
 }
 $("button").click(function(){
     $.post("demo_test_post.asp",
