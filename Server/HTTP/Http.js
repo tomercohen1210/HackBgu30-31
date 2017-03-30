@@ -16,7 +16,12 @@ module.exports = function (port, pathToApp) {
     const PORT = port;
 
 
-
+    app.get('/Alon', function (req, res) {
+        res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/Alon.html"));
+    });
+    app.get('/Tomer', function (req, res) {
+        res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/Tomer.html"));
+    });
     app.get('/', function (req, res) {
         res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/index.html"));
     });

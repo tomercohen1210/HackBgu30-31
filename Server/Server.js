@@ -5,10 +5,7 @@ var path = require("path");
 var http = require(path.join(__dirname,"HTTP/Http.js"))(8998, "Hackthon/public");
 
 http.app.get('/CalculateScore', function (req, res) {
-        var obj = req.query;
-
-    }
-    );
+        var obj = req.query;});
 
 var ansNum = 0;
 var QA = {
@@ -30,8 +27,6 @@ var QA = {
 };
 var users = ['U1','U2','U3'];
 var StudentAns = {};
-
-
 
 var io = require('socket.io').listen(http.server);
 http.app.get('/send_ans', function(req,res){
