@@ -4,3 +4,4 @@
 var sendAns2 = function(){
     var ans = $('input[name="Q1"]:checked').val();
 }
+sdfsd'
