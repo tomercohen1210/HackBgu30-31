@@ -20,6 +20,12 @@
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
+    <style>
+        li{
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="css/Test.css"/>
 
 </head>
 <body>
@@ -71,6 +77,18 @@
                     <section><img src="img/Private-equity-intro-005.jpg"></section>
                     <section><img src="img/Private-equity-intro-006.jpg"></section>
                     <section><img src="img/Private-equity-intro-007.jpg"></section>
+                    <section><<div id="Q1" style="visibility: visible">
+                        <p class="question" id ="que1">Gender?</p>
+                        <ul>
+                            <li onclick="bla(this)" id = "1" value="Male">Male</li>
+                            <li onclick="bla(this)" id = "2"value="Female">Female</li>
+                            <li onclick="bla(this)" id = "3"value="Trans">Trans</li>
+                            <li onclick="bla(this)" id = "4" value="Other">Other</li>
+                        </ul>
+                        <button class="submit" onclick="getAns('que1','Q1','Q2')">Submit</button>
+
+                    </div></section>
+
                     <section><img src="img/GRAPH1.jpg"></section>
                     <section><img src="img/GRAPH2.jpg"></section>
                     <section><img src="img/GRAPH3.jpg"></section>
