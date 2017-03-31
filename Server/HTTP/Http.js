@@ -22,6 +22,9 @@ module.exports = function (port, pathToApp) {
     app.get('/Tomer', function (req, res) {
         res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/Tomer.html"));
     });
+    app.get('/Login', function (req, res) {
+        res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/login.html"));
+    });
     app.get('/', function (req, res) {
         res.sendFile(path.normalize(__dirname + "/../../app/" + pathToApp + "/index.html"));
     });
