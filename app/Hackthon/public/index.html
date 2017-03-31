@@ -26,8 +26,42 @@
 
 <div data-role="page" id="homepage" data-theme="b">
 
+
+    <style>
+        #top {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 88%;
+            top: 0;
+        }
+        #bottom {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 12%;
+            bottom: 0;
+            border: solid;
+            border-color: #0b0600;
+            border-width: 1px;
+            align-items: center;
+            align-content: center;
+        }
+
+
+
+
+    </style>
+
     <div role="main" class="ui-content">
-        <div style="height: 400px ;width: 100%">
+
+       
+
+
+        <div style="float:right ;overflow: hidden ">
+        </div>
+
+        <div id="top" style="float:left; height: 350px ;width: 100%">
             <div class="reveal">
                 <div class="slides">
                     <section><img src="img/Private-equity-intro-001.jpg"></section>
@@ -37,7 +71,9 @@
                     <section><img src="img/Private-equity-intro-005.jpg"></section>
                     <section><img src="img/Private-equity-intro-006.jpg"></section>
                     <section><img src="img/Private-equity-intro-007.jpg"></section>
-                    <section>Queastions</section>
+                    <section><img src="img/GRAPH1.jpg"></section>
+                    <section><img src="img/GRAPH2.jpg"></section>
+                    <section><img src="img/GRAPH3.jpg"></section>
                     <section><img src="img/Private-equity-intro-008.jpg"></section>
                     <section><img src="img/Private-equity-intro-009.jpg"></section>
                     <section><img src="img/Private-equity-intro-010.jpg"></section>
@@ -67,12 +103,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
         <script src="js/app.js"></script>
         <script>
-            Reveal.initialize();
+            Reveal.initialize(	{controls: false,keyboard:true});
         </script>
 
-    </div><!-- /content -->
 
-    <div data-role="panel" id="left-panel" data-display="reveal" data-position="left">
+        <div id="bottom">
+
+            <img src="img/1.png" style="height: 54px;">
+
+        </div>
+
+    </div>
+
+
+
+
+    <div data-role="panel" id="left-panel" data-display="reveal" data-position="left" style="overflow: hidden">
 
         <nav class="main-nav">
             <ul>
@@ -85,6 +131,7 @@
                 <li><a href="#right-panel"><img src="images/icons/white/user.png" alt="" title="" /><span>Account</span></a></li>
                 <li><a href="social.html" data-transition="slidefade"><img src="images/icons/white/heart.png" alt="" title="" /><span>Social</span></a></li>
             </ul>
+
         </nav>
 
     </div><!-- /panel -->
@@ -101,7 +148,7 @@
             </div>
 
             <div class="user_details">
-                <p>Sarah Williams</p>
+                <p>Naor Tedgi</p>
                 <ul class="user_social">
                     <li><a href="social.html"><img src="images/icons/white/twitter.png" alt="" title="" /></a></li>
                     <li><a href="social.html"><img src="images/icons/white/facebook.png" alt="" title="" /></a></li>
@@ -120,6 +167,14 @@
     </div><!-- /panel -->
 
 </div><!-- /page -->
+
+
+
+
+
+
+
+
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/jquery.validate.min.js" type="text/javascript"></script>
