@@ -3986,6 +3986,7 @@ var  navigateLeft;
 		}
 		if(bool==undefined) {
             socket.emit("on_SlideMoveLeft", {uuid: uuid});
+            checkerIfStoper();
         }
 
      };
@@ -4003,6 +4004,8 @@ var  navigateLeft;
 		}
           if(bool==undefined) {
               socket.emit("on_SlideMoveRight", {uuid: uuid});
+              checkerIfStoper();
+
           }
 
       }

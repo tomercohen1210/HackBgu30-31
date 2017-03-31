@@ -10,7 +10,7 @@ var ans= [];
 var uid = 1;
 var selectedLi;
 $(document).ready(function(){
-    setSocketIo();
+ //   setSocketIo();
 
 });
 var bla = function(data){

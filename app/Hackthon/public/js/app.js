@@ -2,8 +2,35 @@
  * Created by circle on 30/03/17.
  */
 var socket;
-var uuid = new Date().getTime();
+var moveitmoveit = function (num) {
+    var elem = document.getElementById("myBar"+num);
+    var width = 1;
+    var id = setInterval(frame, 60);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++;
+            elem.style.width = width + '%';
+        }
+    }
+}
 
+var checkerIfStoper=function(){
+    var X =Reveal.getCurrentSlide();
+    if (X.children[0].outerHTML.includes("Q2")){
+       moveitmoveit(1);
+   }
+    if (X.children[0].outerHTML.includes("Q1")){
+        moveitmoveit(2);
+    }
+
+};
+
+
+var uuid = new Date().getTime();
+var func={};
+func["move"]=moveitmoveit;
 
 var uid = 1;
 var data = [
@@ -13,17 +40,21 @@ var data = [
     { label: "mango",  y: 30  },
     { label: "grape",  y: 28  }
 ];
+
+
+var onPouseEvent = function () {
+    $.notify("need to slow down..");
+    socket.emit("on_Pouse",{});
+};
 $(document).ready(function () {
     setTimeout(function () {
         setSocketIo();
-
-    },1000);
-
+    },3000);
 });
 
 
 function setSocketIo() {
-     socket = io.connect('http://localhost:8998');
+     socket = io.connect('http://40.68.213.225:8998');
 
     socket.emit("on_connect",{uuid:uuid});
 
@@ -33,9 +64,18 @@ function setSocketIo() {
 
     socket.on("on_SlideMoveRight", function(data){
         navigateRight(false);
+        checkerIfStoper();
     });
+
+    socket.on("on_Pouse", function(data){
+            $.notify("need to slow down..");
+
+    });
+
+
     socket.on("on_SlideMoveLeft", function(data){
         navigateLeft(false);
+        checkerIfStoper();
     });
     socket.on("send_AllUsersAns", function (data) {
         //build the chart for each question

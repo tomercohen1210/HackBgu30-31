@@ -22,6 +22,8 @@
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/notify.min.js" defer></script>
+
 
 </head>
 <body>
@@ -54,12 +56,47 @@
 
 
     </style>
+    <style>
+        #myProgress1 {
+            width: 100%;
+            background-color: #ddd;
+            z-index: 1;
+            position: fixed;
+
+        }
+
+        #myBar1 {
+            width: 1%;
+            height: 30px;
+            background-color: #4CAF50;
+            z-index: 1;
+            position: fixed;
+
+        }
+    </style>
+
+    <style>
+        #myProgress2 {
+            width: 100%;
+            background-color: #ddd;
+            z-index: 1;
+            position: fixed;
+
+
+        }
+
+        #myBar2 {
+            width: 1%;
+            height: 30px;
+            background-color: #4CAF50;
+            z-index: 1;
+            position: fixed;
+        }
+    </style>
 
     <div role="main" class="ui-content">
 
-        <div style="float:right ;overflow: hidden ">
-            <i class="fa fa-pause-circle" aria-hidden="true" style="color: red ;font-size: 18px;margin: 4px" ></i>
-        </div>
+
 
         <div id="top" style="float:left; height: 350px ;width: 100%">
             <div class="reveal">
@@ -71,13 +108,22 @@
                     <section><img src="img/Private-equity-intro-005.jpg"></section>
                     <section><img src="img/Private-equity-intro-006.jpg"></section>
                     <section><img src="img/Private-equity-intro-007.jpg"></section>
-                    <section><img src="img/Q2.png"></section>
-                    <section><img src="img/Q1.png"></section>
+                    <section ><img src="img/Q2.png" style="margin: -1px 0px">
+                        <div id="myProgress1">
+                            <div id="myBar1"></div>
+                        </div>
+
+                    </section>
+                    <section ><img src="img/Q1.png" style="margin: -7px 0px">
+                        <div id="myProgress2">
+                            <div id="myBar2"></div>
+                        </div>
+
+                    </section>
                     <section><iframe src="http://localhost:8998/Tomer.html" style="width: 100%;height: 820px;"></iframe>
 
                     </section>
                     <section><img src="img/ans.jpg"></section>
-
                     <section><img src="img/Private-equity-intro-008.jpg"></section>
                     <section><img src="img/Private-equity-intro-009.jpg"></section>
                     <section><img src="img/Private-equity-intro-010.jpg"></section>
@@ -109,7 +155,9 @@
         <script>
             Reveal.initialize(	{controls: false,keyboard:true});
         </script>
-
+        <div id="pause_but" style="float:right ;cursor: pointer;color: red ;font-size: 18px;margin: 4px ;z-index: 1   ; position: absolute;" onclick="onPouseEvent()">
+            <i  class="fa fa-pause-circle" aria-hidden="true" ></i>
+        </div>
 
         <div id="bottom">
 

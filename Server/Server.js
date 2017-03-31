@@ -63,6 +63,17 @@ io.sockets.on('connection', function (socket) {
         });
 
     });
+
+    socket.on('on_Pouse', function (data) {
+        Object.keys(io.sockets.sockets).forEach(function (id) {
+            if(socket.id!=id) {
+                var currentSocket = io.sockets.sockets[id];
+                currentSocket.emit("on_Pouse", data);
+            }
+        });
+
+    });
+
     socket.on('send_Ans',function(data){//go over all data and give plus one to every answer
         for(var i = 1; i < data.length; i++){
             for(var j = 0; j < StudentAns.length; j++){
