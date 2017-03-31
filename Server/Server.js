@@ -13,40 +13,36 @@ http.app.get('/CalculateScore', function (req, res) {
     );
 
 var ansNum = 0;
-var QA = {
-    Q1:
-    {
-        'possibles': ["Male","Female","Other"],
-        "ans": "Male"
-    },
-    Q2:
-    {
-        'possibles': ["Male","Female","Other"],
-        "ans": "Female"
-    },
-    Q3:
-    {
-        'possibles': ["Male","Female","Other"],
-        "ans": "Other"
-    }
-};
-var users = ['U1','U2','U3'];
-var StudentAns = {};
+
+var users = [];
+var StudentAns =
+    [{Q:'Q1',Ans:[{Male:0,Female:0,Other:0}],rightAns:"Male"},
+    {Q:'Q2',Ans:[{Male:0,Female:0,Other:0}],rightAns:"Female"},
+    {Q:'Q3',Ans:[{Male:0,Female:0,Other:0}],rightAns:"Other"}];
 
 var io = require('socket.io').listen(http.server);
-function buildJsonChart(){
+var buildJsonChart = function(data){
     var ans = {};
-    for(var i = 0; i < QA.length; i++){
-        ans[QA[i]] = [];
-        for(var j = 0; j < QA[i]['possibles']; j++){
-            if(StudentAns[QA[i]][QA[i]['possibles'][j]] != null)
-            ans[QA[i]].push({'label':QA[i]['possibles'][j],'y':StudentAns[QA[i]][QA[i]['possibles'][j]]});
-            else
-                ans[QA[i]].push({'label':QA[i]['possibles'][j],'y':0})
+    for(var i = 1; i < data.length; i++) {
+        for (var j = 0; j < StudentAns.length; j++) {
+            if(StudentAns[j].Q == data[i].Q) {
+                ans[StudentAns[j].Q] = [];
+                for (var ans1 in StudentAns[j].Ans[0]) {
+                    if (StudentAns[j].Ans[0].hasOwnProperty(ans1)) {
+                        ans[StudentAns[j].Q].push({label: ans1, y: StudentAns[j].Ans[0][ans1]})
+                    }
+                }
+            }
         }
     }
     return ans;
 };
+var upInOne = function(uId){
+    if(users[uId] == null)
+        users[uId] = 1;
+    else
+        users[uId] ++;
+}
 io.sockets.on('connection', function (socket) {
     socket.on('on_SlideMoveRight', function (data) {
             Object.keys(io.sockets.sockets).forEach(function (id) {
@@ -67,14 +63,20 @@ io.sockets.on('connection', function (socket) {
         });
 
     });
-    socket.on('send_Ans',function(data){
-        if(StudentAns['Q1'][data['Q&A']['Q1']] == null)
-            StudentAns['Q1'][data['Q&A']['Q1']] = 1;
-        else
-            StudentAns['Q1'][data['Q&A']['Q1']]++;
+    socket.on('send_Ans',function(data){//go over all data and give plus one to every answer
+        for(var i = 1; i < data.length; i++){
+            for(var j = 0; j < StudentAns.length; j++){
+                if(StudentAns[j].Q == data[i].Q){
+                    StudentAns[j].Ans[0][(data[i].Ans)]++;
+                    if(StudentAns[j].rightAns == data[i].Ans)//student was right
+                        upInOne(data[0]);
+                }
+            }
+        }
         ansNum++;
-        if(io.sockets.sockets == ansNum){
-            var ans =  buildJsonChart();
+//io.sockets.sockets.length == ansNum
+        if(true){//num of connected sockets equals num of answers
+            var ans =  buildJsonChart(data);
             Object.keys(io.sockets.sockets).forEach(function (id) {
                 var currentSocket = io.sockets.sockets[id];
                 //Set the risk to the specific user/car/socket
