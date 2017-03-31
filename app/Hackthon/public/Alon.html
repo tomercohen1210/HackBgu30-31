@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url("img/login_background_noicons.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #login_div{
+            position: absolute;
+            right: 80px;
+            bottom: 80px;
+            width: 400px;
+            height: 180px;
+            background-image: url("img/login_icons.png");
+            background-repeat: no-repeat;
+        }
+
+        .txt_box {
+            width: 280px;
+            position: relative;
+            right: 45px;
+            height: 30px;
+            border-radius: 10px;
+            border: none;
+            padding-left: 5px;
+            font-size: 15px;
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        #txt_username{
+            top: 14px;
+            position: absolute;
+            font-weight: bold;
+        }
+
+        #txt_password{
+            position: absolute;
+            bottom: 52px;
+        }
+
+        #btn_login{
+            position: absolute;
+            bottom: 0px;
+            margin-left: 40%;
+            height: 35px;
+            width: 120px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div id="login_div">
+    <input type="text" id="txt_username" name="username" class="txt_box" placeholder="username">
+    <input type="password" id="txt_password" name="password" class="txt_box" placeholder="password">
+    <img src="img/login_btn.png" id="btn_login" />
+</div>
+</body>
+</html>

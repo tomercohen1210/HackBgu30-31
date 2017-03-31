@@ -14,14 +14,16 @@ var data = [
     { label: "grape",  y: 28  }
 ];
 $(document).ready(function () {
-    $("#graph").hide();
-    setSocketIo();
+    setTimeout(function () {
+        setSocketIo();
+
+    },1000);
 
 });
 
 
 function setSocketIo() {
-     socket = io.connect('http://localhost:8998');
+     socket = io.connect('http://132.72.237.28:8998');
 
     socket.emit("on_connect",{uuid:uuid});
 
@@ -47,7 +49,7 @@ function setSocketIo() {
 
 
 //function that send the user answers
-
+/*
 var getAns = function(){
     var ans = [];
     ans.push($('input[name="gender"]:checked').val());
@@ -84,13 +86,7 @@ var createChart = function (data) {
                 {
                     // Change type to "bar", "area", "spline", "pie",etc.
                     type: "column",
-                    dataPoints:data[i] /*[
-                 { label: "apple",  y: 10  },
-                 { label: "orange", y: 15  },
-                 { label: "banana", y: 25  },
-                 { label: "mango",  y: 30  },
-                 { label: "grape",  y: 28  }
-                 ]*/
+                    dataPoints:data[i]
                 }
             ]
         });
@@ -98,6 +94,8 @@ var createChart = function (data) {
     }
 
 }
+
+
 $("button").click(function(){
     $.post("demo_test_post.asp",
         {
@@ -109,3 +107,4 @@ $("button").click(function(){
         });
 });
 
+*/
